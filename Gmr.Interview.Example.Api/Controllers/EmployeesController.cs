@@ -1,6 +1,5 @@
 ﻿using Gmr.Interview.Example.ApplicationServices.Interfaces;
 using Gmr.Interview.Example.ViewModels;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -15,9 +14,11 @@ namespace Gmr.Interview.Example.Api.Controllers
 
         private readonly IEmployeeService _employeeService;
 
-        public EmployeesController(ILogger<EmployeesController> logger)
+        public EmployeesController(ILogger<EmployeesController> logger,
+            IEmployeeService employeeService)
         {
             _logger = logger;
+            _employeeService = employeeService;
         }
 
         // GET api/employees/5

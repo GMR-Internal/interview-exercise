@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
 using Gmr.Interview.Example.ApplicationServices.Interfaces;
 using Gmr.Interview.Example.DomainModels;
 using Gmr.Interview.Example.DomainServices.Repositories;
@@ -12,20 +11,19 @@ namespace Gmr.Interview.Example.ApplicationServices.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly ILogger _logger = Log.ForContext<EmployeeService>();
-        private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
         private readonly IRepository<Employee> _employeeRepository;
+        private readonly IMapper _mapper;
 
-        public EmployeeService(IMapper mapper, IConfiguration configuration, IRepository<Employee> employeeRepository)
+        public EmployeeService(IRepository<Employee> employeeRepository,
+            IMapper mapper)
         {
-            _mapper = mapper;
-            _configuration = configuration;
             _employeeRepository = employeeRepository;
+            _mapper = mapper;
         }
 
         public async Task<EmployeeViewModel> GetEmployeeByEmployeeId(int employeeId)
         {
-            var employee = await _employeeRepository.FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
+            var employee = await _employeeRepository.FirstOrDefaultAsync(x => x.Id == employeeId);
 
             return _mapper.Map<EmployeeViewModel>(employee);
         }
@@ -51,7 +49,7 @@ namespace Gmr.Interview.Example.ApplicationServices.Services
 
         public async Task<bool> DeleteEmployeeHard(int employeeId)
         {
-            var employee = await _employeeRepository.FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
+            var employee = await _employeeRepository.FirstOrDefaultAsync(x => x.Id == employeeId);
 
             await _employeeRepository.DeleteAsync(employee);
             
@@ -60,7 +58,7 @@ namespace Gmr.Interview.Example.ApplicationServices.Services
 
         public async Task<bool> DeleteEmployeeSoft(int employeeId)
         {
-            var employee = await _employeeRepository.FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
+            var employee = await _employeeRepository.FirstOrDefaultAsync(x => x.Id == employeeId);
 
             if (employee != null)
             {

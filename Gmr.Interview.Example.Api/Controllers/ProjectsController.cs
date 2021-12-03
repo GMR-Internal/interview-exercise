@@ -14,9 +14,11 @@ namespace Gmr.Interview.Example.Api.Controllers
 
         private readonly IProjectService _projectService;
 
-        public ProjectsController(ILogger<ProjectsController> logger)
+        public ProjectsController(ILogger<ProjectsController> logger,
+            IProjectService projectService)
         {
             _logger = logger;
+            _projectService = projectService;
         }
 
         // GET api/projects/5

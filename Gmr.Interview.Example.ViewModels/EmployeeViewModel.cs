@@ -4,7 +4,7 @@ namespace Gmr.Interview.Example.ViewModels
 {
     public class EmployeeViewModel
     {
-        public string EmployeeId { get; set; }
+        public int Id { get; set; }
 
         public string Username { get; set; }
 

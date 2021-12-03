@@ -8,7 +8,7 @@ namespace Gmr.Interview.Example.DomainModels
     public class Customer : BaseEntity
     {
         [Key]
-        public int CustomerId { get; set; }
+        public int Id { get; set; }
 
         public string CustomerName { get; set; }
 

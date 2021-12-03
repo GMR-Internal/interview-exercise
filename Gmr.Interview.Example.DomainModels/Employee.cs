@@ -7,7 +7,7 @@ namespace Gmr.Interview.Example.DomainModels
     public class Employee : BaseEntity
     {
         [Key]
-        public int EmployeeId { get; set; }
+        public int Id { get; set; }
 
         public string Username { get; set; }
 

@@ -4,6 +4,8 @@ namespace Gmr.Interview.Example.ViewModels
 {
     public class ProjectViewModel
     {
+        public int Id { get; set; }
+        
         public string ProjectNumber { get; set; }
 
         public string ProjectName { get; set; }

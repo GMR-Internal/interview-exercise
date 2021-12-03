@@ -358,3 +358,5 @@ src/Gmr.Vantage.Api/wwwroot/images/employees/*
 
 # allow for lcaol dev-specific changes
 appsettings.Development.json
+
+*.DB*

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
 using Gmr.Interview.Example.ApplicationServices.Interfaces;
 using Gmr.Interview.Example.DomainModels;
 using Gmr.Interview.Example.DomainServices.Repositories;
@@ -12,20 +11,19 @@ namespace Gmr.Interview.Example.ApplicationServices.Services
     public class ProjectService : IProjectService
     {
         private readonly ILogger _logger = Log.ForContext<ProjectService>();
-        private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
         private readonly IRepository<Project> _projectRepository;
+        private readonly IMapper _mapper;
 
-        public ProjectService(IMapper mapper, IConfiguration configuration, IRepository<Project> projectRepository)
-        {
-            _mapper = mapper;
-            _configuration = configuration;
+        public ProjectService(IRepository<Project> projectRepository,
+            IMapper mapper)
+        {            
             _projectRepository = projectRepository;
+            _mapper = mapper;
         }
 
         public async Task<ProjectViewModel> GetProjectByProjectId(int projectId)
         {
-            var project = await _projectRepository.FirstOrDefaultAsync(x => x.ProjectId == projectId);
+            var project = await _projectRepository.FirstOrDefaultAsync(x => x.Id == projectId);
 
             return _mapper.Map<ProjectViewModel>(project);
         }
@@ -51,7 +49,7 @@ namespace Gmr.Interview.Example.ApplicationServices.Services
 
         public async Task<bool> DeleteProjectHard(int projectId)
         {
-            var project = await _projectRepository.FirstOrDefaultAsync(x => x.ProjectId == projectId);
+            var project = await _projectRepository.FirstOrDefaultAsync(x => x.Id == projectId);
 
             await _projectRepository.DeleteAsync(project);
 
@@ -60,7 +58,7 @@ namespace Gmr.Interview.Example.ApplicationServices.Services
 
         public async Task<bool> DeleteProjectSoft(int projectId)
         {
-            var project = await _projectRepository.FirstOrDefaultAsync(x => x.ProjectId == projectId);
+            var project = await _projectRepository.FirstOrDefaultAsync(x => x.Id == projectId);
 
             if (project != null)
             {

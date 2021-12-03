@@ -14,9 +14,11 @@ namespace Gmr.Interview.Example.Api.Controllers
 
         private readonly ICustomerService _customerService;
 
-        public CustomersController(ILogger<CustomersController> logger)
+        public CustomersController(ILogger<CustomersController> logger,
+            ICustomerService customerService)
         {
             _logger = logger;
+            _customerService = customerService;
         }
 
         // GET api/customers/5

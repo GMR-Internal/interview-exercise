@@ -8,7 +8,7 @@ namespace Gmr.Interview.Example.DomainModels
     public class Project : BaseEntity
     {
         [Key]
-        public int ProjectId { get; set; }
+        public int Id { get; set; }
 
         public string ProjectNumber { get; set; }
 

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
 using Gmr.Interview.Example.ApplicationServices.Interfaces;
 using Gmr.Interview.Example.DomainModels;
 using Gmr.Interview.Example.DomainServices.Repositories;
@@ -12,20 +11,19 @@ namespace Gmr.Interview.Example.ApplicationServices.Services
     public class CustomerService : ICustomerService
     {
         private readonly ILogger _logger = Log.ForContext<CustomerService>();
-        private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
         private readonly IRepository<Customer> _customerRepository;
+        private readonly IMapper _mapper;
 
-        public CustomerService(IMapper mapper, IConfiguration configuration, IRepository<Customer> customerRepository)
+        public CustomerService(IRepository<Customer> customerRepository,
+            IMapper mapper)
         {
-            _mapper = mapper;
-            _configuration = configuration;
             _customerRepository = customerRepository;
+            _mapper = mapper;
         }
 
         public async Task<CustomerViewModel> GetCustomerByCustomerId(int customerId)
         {
-            var customer = await _customerRepository.FirstOrDefaultAsync(x => x.CustomerId == customerId);
+            var customer = await _customerRepository.FirstOrDefaultAsync(x => x.Id == customerId);
 
             return _mapper.Map<CustomerViewModel>(customer);
         }
@@ -51,7 +49,7 @@ namespace Gmr.Interview.Example.ApplicationServices.Services
 
         public async Task<bool> DeleteCustomerHard(int customerId)
         {
-            var customer = await _customerRepository.FirstOrDefaultAsync(x => x.CustomerId == customerId);
+            var customer = await _customerRepository.FirstOrDefaultAsync(x => x.Id == customerId);
 
             await _customerRepository.DeleteAsync(customer);
 
@@ -60,7 +58,7 @@ namespace Gmr.Interview.Example.ApplicationServices.Services
 
         public async Task<bool> DeleteCustomerSoft(int customerId)
         {
-            var customer = await _customerRepository.FirstOrDefaultAsync(x => x.CustomerId == customerId);
+            var customer = await _customerRepository.FirstOrDefaultAsync(x => x.Id == customerId);
 
             if (customer != null)
             {

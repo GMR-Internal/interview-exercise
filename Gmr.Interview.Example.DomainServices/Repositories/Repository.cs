@@ -9,17 +9,16 @@ using System.Threading.Tasks;
 
 namespace Gmr.Interview.Example.DomainServices.Repositories
 {
-    public class Repository<C, T> : IRepository<T>
+    public class Repository<T> : IRepository<T>
         where T : BaseEntity
-        where C : IDbContext
     {
-        private readonly C _context;
+        private readonly IInterviewExampleDbContext _context;
 
         private DbSet<T> _entities;
 
-        public Repository(IServiceProvider serviceProvider)
+        public Repository(IInterviewExampleDbContext dbContext)
         {
-            _context = (C)serviceProvider.GetService(typeof(C));
+            _context = dbContext;
             _entities = _context.Set<T>();
         }
 
