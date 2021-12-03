@@ -25,10 +25,9 @@ dotnet run
 
 You can access the Swagger Docs page at [https://localhost:5001/swagger](https://localhost:5001/swagger)
 
-## Possible Discussion Questions:
+## Possible Discussion Questions
 
 - How would you go about adding a new property to the Customer entity and exposing it via the API?
 - Explain how you would add the ability to filter projects by ProjectName
 - How would you add a new endpoint to return only active projects
-- If an employee was not being returned with the GET endpoint, how would you go about
-  troubleshooting the issue?
+- Explain how you might troubleshoot data that was not being returned in a GET endpoint, assuming the data is being filtered
